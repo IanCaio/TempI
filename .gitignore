@@ -1,0 +1,5 @@
+#ignore object files and archive files
+*.[oa]
+
+#ignore TODO file in current directory
+/TODO
