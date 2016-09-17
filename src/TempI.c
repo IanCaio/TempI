@@ -441,11 +441,12 @@ error:
 //Returns 0 if all went fine, 1 if something went wrong.
 int TempI_Read_Config(TempI_Main_t *self){
 	FILE *config_file;
-	char config_path[TEMPI_MAX_CHARS];
+	char *config_path;
 	char config_line[TEMPI_MAX_CHARS];
 	
-	strncpy(config_path,self->ExecutablePath, TEMPI_MAX_CHARS);
-	strncat(config_path, "/Config/TempI.config", TEMPI_MAX_CHARS-strlen(config_path));
+	config_path=TempI_Concatenate_Path(self->ExecutablePath, "/Config/TempI.config");
+	
+	D_check_pointer(config_path);
 	
 	D_debug("Configuration file path: %s", config_path);
 	
@@ -495,8 +496,14 @@ int TempI_Read_Config(TempI_Main_t *self){
 	D_debug("Log: %u", self->Log);
 	
 	fclose(config_file);
+	free(config_path);
+	
 	return 0;
 	
 error:
+	
+	if(config_path){
+		free(config_path);
+	}
 	return 1;
 }
