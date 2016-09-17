@@ -51,3 +51,5 @@ void TempI_Callback_Quit(); //Callback to quit program
 int TempI_Number_Of_Cores(); //Returns the number of cores
 gint TempI_Update(gpointer datapointer); //Updates the indicator
 int TempI_Get_Core_Temperatures(TempI_Main_t *self); //Updates the temperatures values on every core
+char *TempI_Concatenate_Path(const char *root, const char *subdir); //Adds the subdirectory to the root directory and
+																	//returns a malloc string with the result of the concatenation

@@ -208,51 +208,49 @@ error:
 	return -1;
 }
 
+char *TempI_Concatenate_Path(const char *root, const char *subdir){
+	size_t PathSize = strlen(root) + strlen(subdir) + 1;
+	char *FinalPath;
+	
+	FinalPath = malloc(PathSize);
+	
+	D_check_pointer(FinalPath);
+	
+	strncpy(FinalPath, root, strlen(root) + 1); //+1 to include the terminating null byte
+	
+	strncat(FinalPath, subdir, PathSize - strlen(FinalPath) - 1);	//FinalPath must be strlen(FinalPath)+n+1 bytes long (PathSize)
+																	//n = PathSize - strlen(FinalPath) - 1
+																	//n+1+strlen(FinalPath) => PathSize (no buffer overflow!)
+	return FinalPath;
+error:
+	return NULL;
+}
+
 int TempI_Resolve_Icons_Path(TempI_Main_t *self){
 	//Get the main icon path
-	//ExecutablePath + "/icons/menu-icon.png" + '\0' = ExecutablePath + 21 chars
-	size_t IconPathSize = strlen(self->ExecutablePath)+21;
-	self->Gtk_Indicator_Icon_Path = malloc(IconPathSize);
-	strncpy(self->Gtk_Indicator_Icon_Path, self->ExecutablePath, IconPathSize);
-	strncat(self->Gtk_Indicator_Icon_Path, "/icons/menu-icon.png", IconPathSize-strlen(self->Gtk_Indicator_Icon_Path));
+	self->Gtk_Indicator_Icon_Path = TempI_Concatenate_Path(self->ExecutablePath, "/icons/menu-icon.png");
 	
-	D_debug("Main Indicator Icon Path: %s", self->Gtk_Indicator_Icon_Path);
-	
+	D_check_pointer(self->Gtk_Indicator_Icon_Path);
+		
 	//Resolve Core states icon paths
-	//ExecutablePath + "/icons/green-icon.png" + '\0' = ExecutablePath + 22 chars
-	IconPathSize = strlen(self->ExecutablePath)+22;
-	self->Gtk_Core_Icon_Path[0] = malloc(IconPathSize);
-	
+	self->Gtk_Core_Icon_Path[0] = TempI_Concatenate_Path(self->ExecutablePath, "/icons/green-icon.png");
+		
 	D_check_pointer(self->Gtk_Core_Icon_Path[0]);
 	
-	strncpy(self->Gtk_Core_Icon_Path[0], self->ExecutablePath, IconPathSize);
-	strncat(self->Gtk_Core_Icon_Path[0], "/icons/green-icon.png", IconPathSize-strlen(self->Gtk_Core_Icon_Path[0]));
-	
-	//ExecutablePath + "/icons/yellow-icon.png" + '\0' = ExecutablePath + 23 chars
-	IconPathSize = strlen(self->ExecutablePath)+23;
-	self->Gtk_Core_Icon_Path[1] = malloc(IconPathSize);
+	self->Gtk_Core_Icon_Path[1] = TempI_Concatenate_Path(self->ExecutablePath, "/icons/yellow-icon.png");
 	
 	D_check_pointer(self->Gtk_Core_Icon_Path[1]);
 	
-	strncpy(self->Gtk_Core_Icon_Path[1], self->ExecutablePath, IconPathSize);
-	strncat(self->Gtk_Core_Icon_Path[1], "/icons/yellow-icon.png", IconPathSize-strlen(self->Gtk_Core_Icon_Path[1]));
-	//ExecutablePath + "/icons/orange-icon.png" + '\0' = ExecutablePath + 23 chars
-	IconPathSize = strlen(self->ExecutablePath)+23;
-	self->Gtk_Core_Icon_Path[2] = malloc(IconPathSize);
+	self->Gtk_Core_Icon_Path[2] = TempI_Concatenate_Path(self->ExecutablePath, "/icons/orange-icon.png");
 	
 	D_check_pointer(self->Gtk_Core_Icon_Path[2]);
 	
-	strncpy(self->Gtk_Core_Icon_Path[2], self->ExecutablePath, IconPathSize);
-	strncat(self->Gtk_Core_Icon_Path[2], "/icons/orange-icon.png", IconPathSize-strlen(self->Gtk_Core_Icon_Path[2]));
-	//ExecutablePath + "/icons/red-icon.png" + '\0' = ExecutablePath + 20 chars
-	IconPathSize = strlen(self->ExecutablePath)+20;
-	self->Gtk_Core_Icon_Path[3] = malloc(IconPathSize);
+	self->Gtk_Core_Icon_Path[3] = TempI_Concatenate_Path(self->ExecutablePath, "/icons/red-icon.png");
 	
 	D_check_pointer(self->Gtk_Core_Icon_Path[3]);
 	
-	strncpy(self->Gtk_Core_Icon_Path[3], self->ExecutablePath, IconPathSize);
-	strncat(self->Gtk_Core_Icon_Path[3], "/icons/red-icon.png", IconPathSize-strlen(self->Gtk_Core_Icon_Path[3]));
-	
+	//Prompt the paths as debugging
+	D_debug("Main Indicator Icon Path: %s", self->Gtk_Indicator_Icon_Path);
 	D_debug("Core Icon Paths:\n%s\n%s\n%s\n%s", self->Gtk_Core_Icon_Path[0], self->Gtk_Core_Icon_Path[1],
 		self->Gtk_Core_Icon_Path[2], self->Gtk_Core_Icon_Path[3]);
 	
