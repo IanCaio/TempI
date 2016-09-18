@@ -3,3 +3,6 @@
 
 #ignore TODO file in current directory
 /TODO
+
+#ignore compiled binary
+bin/TempI

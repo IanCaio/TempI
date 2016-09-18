@@ -457,7 +457,7 @@ int TempI_Read_Config(TempI_Main_t *self){
 	char *string_pointer;
 	
 	while(fgets(config_line, TEMPI_MAX_CHARS, config_file)){
-		if(strncmp(config_line, "TIMER=", 6) == 0){
+		if(strncmp(config_line, "DELAY=", 6) == 0){
 			string_pointer = strchr(config_line, '=');
 			string_pointer++;
 			
