@@ -318,7 +318,7 @@ error:
 }
 
 //Callback to quit the program (Gtk style)
-void TempI_Callback_Quit(){
+void TempI_Callback_Quit(GtkWidget *CallingWidget, gpointer funcdata){
 	gtk_main_quit();
 }
 
@@ -326,9 +326,9 @@ void TempI_Callback_Quit(){
 void TempI_Set_Main_Indicator(TempI_Main_t *self){
 	self->Gtk_Menu_Root = gtk_menu_new();
 	
-	self->Gtk_Menu_Root_Description = gtk_menu_item_new_with_label("TempI - version 0.1a\nAuthor: Ian");
+	self->Gtk_Menu_Root_Description = gtk_menu_item_new_with_label("About");
 	gtk_menu_append(GTK_MENU(self->Gtk_Menu_Root), self->Gtk_Menu_Root_Description);
-	gtk_widget_set_sensitive(GTK_WIDGET(self->Gtk_Menu_Root_Description), FALSE);
+	gtk_signal_connect(GTK_OBJECT(self->Gtk_Menu_Root_Description), "activate", GTK_SIGNAL_FUNC(TempI_Show_About), self);
 	gtk_widget_show(self->Gtk_Menu_Root_Description);
 	
 	self->Gtk_Menu_Root_Separator = gtk_separator_menu_item_new();
@@ -506,4 +506,17 @@ error:
 		free(config_path);
 	}
 	return 1;
+}
+
+void TempI_Show_About(GtkWidget *CallingWidget, gpointer funcdata){
+	TempI_Main_t *self;
+	self = (TempI_Main_t *) funcdata;
+	
+	char *Authors[] = { "IanCaio - iancaio_dev@hotmail.com" , NULL };
+	
+	GtkWidget *About_Icon = gtk_image_new_from_file( self->Gtk_Indicator_Icon_Path);
+	
+	gtk_show_about_dialog(NULL, "program-name", "TempI", "logo", gtk_image_get_pixbuf( GTK_IMAGE(About_Icon) ),
+		"title", "About TempI Indicator", "authors", Authors,
+		"version", "0.1a", "website", "https://github.com/IanCaio/TempI", NULL);
 }

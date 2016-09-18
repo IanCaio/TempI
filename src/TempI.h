@@ -47,9 +47,10 @@ int TempI_Resolve_Icons_Path(TempI_Main_t *self); //Resolves path to the icons f
 int TempI_Read_Config(TempI_Main_t *self); //Reads config file and sets the variables on TempI_Main
 void TempI_Set_Main_Indicator(TempI_Main_t *self); //Sets the main gtk app indicator
 void TempI_Set_Core_Indicator(TempI_CPU_Core *core, char *icon, int id); //Sets the cores gtk app indicators
-void TempI_Callback_Quit(); //Callback to quit program
+void TempI_Callback_Quit(GtkWidget *CallingWidget, gpointer funcdata); //Callback to quit program
 int TempI_Number_Of_Cores(); //Returns the number of cores
 gint TempI_Update(gpointer datapointer); //Updates the indicator
 int TempI_Get_Core_Temperatures(TempI_Main_t *self); //Updates the temperatures values on every core
 char *TempI_Concatenate_Path(const char *root, const char *subdir); //Adds the subdirectory to the root directory and
 																	//returns a malloc string with the result of the concatenation
+void TempI_Show_About(GtkWidget *CallingWidget, gpointer funcdata); //Shows the about dialog
