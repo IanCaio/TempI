@@ -409,6 +409,10 @@ char *TempI_Resolve_Executable_Path(){
 	string_pointer = strchr(proc_maps_line, '\n');
 	*string_pointer = '\0'; //Replaces newline with null character
 	
+	//Remove application name
+	string_pointer = strrchr(proc_maps_line,'/'); //Finds last occurence of '/'
+	*string_pointer = '\0'; //The application name is still on the variable, but is ignored because of the null terminator
+	
 	//While string_pointer doesn't point the a space (meaning the path is over)
 	while(*string_pointer != ' '){
 		string_pointer--;
@@ -417,17 +421,13 @@ char *TempI_Resolve_Executable_Path(){
 	//Now string pointer is pointing to the first character in the path
 	string_pointer++;
 
-	//Allocates memory long enough to hold the path and the null terminator '\0'
+	//Allocates memory long enough to hold the path up to the first null terminator '\0'
 	size_t path_size = strlen(string_pointer)+1;
 	char *ExecutablePath = malloc(path_size);
 	
 	D_check_pointer(ExecutablePath);
 	
 	strncpy(ExecutablePath, string_pointer, path_size);
-
-	//Remove application name
-	string_pointer = strrchr(ExecutablePath,'/'); //Finds last occurence of '/'
-	*string_pointer = '\0'; //The application name is still on the variable, but is ignored because of the null terminator
 	
 	D_debug("Executable Path: %s", ExecutablePath);
 	
