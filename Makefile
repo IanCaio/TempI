@@ -15,5 +15,10 @@ install: all
 	install -d ~/Executables/TempI/Icons/
 	install -d ~/Executables/TempI/Config/
 	install $(DEST) ~/Executables/TempI/
-	install bin/Config/TempI.conf ~/Executables/TempI/Config/
+	install -m 664 bin/Config/TempI.config ~/Executables/TempI/Config/
+	install -m 664 bin/Icons/menu-icon.png ~/Executables/TempI/Icons/
+	install -m 664 bin/Icons/green-icon.png ~/Executables/TempI/Icons/
+	install -m 664 bin/Icons/orange-icon.png ~/Executables/TempI/Icons/
+	install -m 664 bin/Icons/yellow-icon.png ~/Executables/TempI/Icons/
+	install -m 664 bin/Icons/red-icon.png ~/Executables/TempI/Icons/
 

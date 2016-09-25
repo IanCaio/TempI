@@ -228,24 +228,24 @@ error:
 
 int TempI_Resolve_Icons_Path(TempI_Main_t *self){
 	//Get the main icon path
-	self->Gtk_Indicator_Icon_Path = TempI_Concatenate_Path(self->ExecutablePath, "/icons/menu-icon.png");
+	self->Gtk_Indicator_Icon_Path = TempI_Concatenate_Path(self->ExecutablePath, "/Icons/menu-icon.png");
 	
 	D_check_pointer(self->Gtk_Indicator_Icon_Path);
 		
 	//Resolve Core states icon paths
-	self->Gtk_Core_Icon_Path[0] = TempI_Concatenate_Path(self->ExecutablePath, "/icons/green-icon.png");
+	self->Gtk_Core_Icon_Path[0] = TempI_Concatenate_Path(self->ExecutablePath, "/Icons/green-icon.png");
 		
 	D_check_pointer(self->Gtk_Core_Icon_Path[0]);
 	
-	self->Gtk_Core_Icon_Path[1] = TempI_Concatenate_Path(self->ExecutablePath, "/icons/yellow-icon.png");
+	self->Gtk_Core_Icon_Path[1] = TempI_Concatenate_Path(self->ExecutablePath, "/Icons/yellow-icon.png");
 	
 	D_check_pointer(self->Gtk_Core_Icon_Path[1]);
 	
-	self->Gtk_Core_Icon_Path[2] = TempI_Concatenate_Path(self->ExecutablePath, "/icons/orange-icon.png");
+	self->Gtk_Core_Icon_Path[2] = TempI_Concatenate_Path(self->ExecutablePath, "/Icons/orange-icon.png");
 	
 	D_check_pointer(self->Gtk_Core_Icon_Path[2]);
 	
-	self->Gtk_Core_Icon_Path[3] = TempI_Concatenate_Path(self->ExecutablePath, "/icons/red-icon.png");
+	self->Gtk_Core_Icon_Path[3] = TempI_Concatenate_Path(self->ExecutablePath, "/Icons/red-icon.png");
 	
 	D_check_pointer(self->Gtk_Core_Icon_Path[3]);
 	
